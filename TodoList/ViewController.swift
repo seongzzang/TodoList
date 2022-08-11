@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import FSCalendar
 
 class ViewController: UIViewController {
     
     @IBOutlet var editButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var calenderView: FSCalendar!
     var doneButton:UIBarButtonItem?
     
     var tasks = [Task]() {
