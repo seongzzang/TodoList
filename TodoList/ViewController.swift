@@ -82,7 +82,7 @@ class ViewController: UIViewController {
     
     func setupCalender(){
         self.calenderView.delegate = self
-        self.calenderView.dataSource = selfs
+        self.calenderView.dataSource = self
         
         calenderView.scope = .month  // 월간
         calenderView.locale = Locale(identifier: "ko_KR")
