@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "할 일 등록", message: nil, preferredStyle: .alert)
         let registerButton = UIAlertAction(title: "등록", style: .default) { [weak self] _ in
             guard let title = alert.textFields?[0].text else { return }
-            let task = Task(title: title, done: false)
+            let task = Task(title: title, done: false, day: "00년00월00일")
             self?.tasks.append(task)
             self?.tableView.reloadData()
         }
@@ -61,7 +61,8 @@ class ViewController: UIViewController {
         let data = self.tasks.map {
             [
                 "title": $0.title,
-                "done": $0.done
+                "done": $0.done,
+                "day": $0.day
             ]
         }
         let userDefaults = UserDefaults.standard
@@ -74,13 +75,14 @@ class ViewController: UIViewController {
         self.tasks = data.compactMap {
             guard let title = $0["title"] as? String else { return nil }
             guard let done = $0["done"] as? Bool else {return nil}
-            return Task(title: title, done: done)
+            guard let day = $0["day"] as? String else {return nil}
+            return Task(title: title, done: done, day: day)
         }
     }
     
     func setupCalender(){
         self.calenderView.delegate = self
-        self.calenderView.dataSource = self
+        self.calenderView.dataSource = selfs
         
         calenderView.scope = .month  // 월간
         calenderView.locale = Locale(identifier: "ko_KR")
