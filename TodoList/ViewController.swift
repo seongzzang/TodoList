@@ -13,8 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet var editButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calenderView: FSCalendar!
-    var doneButton:UIBarButtonItem?
+    @IBOutlet weak var dayLabel: UILabel!
     
+    var doneButton:UIBarButtonItem?
     var tasks = [Task]() {
         didSet {
             self.saveTasks()
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.loadTasks()
+        self.setupCalender()
     }
     
     @objc func doneButtonTap(){
@@ -90,6 +92,11 @@ class ViewController: UIViewController {
         calenderView.scrollEnabled = true   // 가능
         calenderView.scrollDirection = .horizontal //가로
         
+        calenderView.backgroundColor = UIColor(red: 241/255, green: 249/255, blue: 255/255, alpha: 1)
+        calenderView.appearance.selectionColor = UIColor(red: 38/255, green: 153/255, blue: 251/255, alpha: 1)
+        calenderView.appearance.todayColor = UIColor(red: 188/255, green: 224/255, blue: 253/255, alpha: 1)
+        
+        
         // 헤더 폰트 설정
         calenderView.appearance.headerTitleFont = UIFont(name: "NotoSansKR-Medium", size: 16)
 
@@ -107,13 +114,14 @@ class ViewController: UIViewController {
 
         // 헤더의 폰트 정렬 설정
         // .center & .left & .justified & .natural & .right
-        calenderView.appearance.headerTitleAlignment = .left
+        calenderView.appearance.headerTitleAlignment = .center
 
         // 헤더 높이 설정
         calenderView.headerHeight = 45
 
         // 헤더 양 옆(전달 & 다음 달) 글씨 투명도
-        calenderView.appearance.headerMinimumDissolvedAlpha = 0.0   // 0.0 = 안보이게 됩니다.
+        calenderView.appearance.headerMinimumDissolvedAlpha = 0.0
+        
     }
 }
 
